@@ -5,6 +5,7 @@ const app = express()
 
 const expressSession = require('express-session')
 const flash = require('connect-flash')
+const cookiParser = require('cookie-parser')
 
 
 // Middleware
@@ -32,24 +33,35 @@ const flash = require('connect-flash')
 //})
 
 
-app.use(expressSession({
-    secret:"abc",
-    resave:false,
-    saveUninitialized:false
-}))
+// app.use(expressSession({
+//     secret:"abc",
+//     resave:false,
+//     saveUninitialized:false
+// }))
 
-app.use(flash())
+// app.use(flash())
 
-app.get('/',function(req,res,next){
-    req.flash("error","Invalid Crededntials")
-    res.redirect('/error')
+// app.get('/',function(req,res,next){
+//     req.flash("error","Invalid Crededntials")
+//     res.redirect('/error')
+// })
+
+// app.get('/error',function(req,res,next){
+//     const messg = req.flash('error')
+//     res.send(messg)
+// })
+
+
+app.use(cookiParser())
+
+app.get("/banned",(req,res)=>{
+    res.cookie("name",'token').send('banned')
 })
 
-app.get('/error',function(req,res,next){
-    const messg = req.flash('error')
-    res.send(messg)
+app.get('/check',(req,res)=>{
+    console.log(req.cookies.name)
+    res.send("Check")
 })
-
 
 app.listen(3000,()=>{
     console.log("Server is Running on Port 3000")
