@@ -6,7 +6,7 @@ const app = express()
 const expressSession = require('express-session')
 const flash = require('connect-flash')
 const cookiParser = require('cookie-parser')
-
+const morgan = require('morgan')
 
 // Middleware
 // 1)---------------------------------Express-Session-----------------
@@ -32,7 +32,7 @@ const cookiParser = require('cookie-parser')
   
 //})
 
-
+// 2)---------------------------------Connect Flash-----------------
 // app.use(expressSession({
 //     secret:"abc",
 //     resave:false,
@@ -51,16 +51,23 @@ const cookiParser = require('cookie-parser')
 //     res.send(messg)
 // })
 
+// 3)---------------------------------CookieParser-----------------
+// app.use(cookiParser())
 
-app.use(cookiParser())
+// app.get("/banned",(req,res)=>{
+//     res.cookie("name",'token').send('banned')
+// })
 
-app.get("/banned",(req,res)=>{
-    res.cookie("name",'token').send('banned')
-})
+// app.get('/check',(req,res)=>{
+//     console.log(req.cookies.name)
+//     res.send("Check")
+// })
 
+// 4)---------------------------------Morgan-----------------
+
+app.use(morgan("combined"))
 app.get('/check',(req,res)=>{
-    console.log(req.cookies.name)
-    res.send("Check")
+    res.send("Morgan Check")
 })
 
 app.listen(3000,()=>{
