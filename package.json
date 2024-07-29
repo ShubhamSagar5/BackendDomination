@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "nodemon ./04-joiValidation/server.js"
+    "dev": "nodemon ./05-relationshipinDB/server.js"
   },
   "dependencies": {
     "connect-flash": "^0.1.1",
